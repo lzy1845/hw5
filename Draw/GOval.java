@@ -8,25 +8,22 @@ import android.graphics.RectF;
  */
 
 public class GOval extends GObject {
-    private boolean selected;
 
     public GOval(float x, float y, float width, float height, boolean selected) {
-        super(x, y, width, height);
-        this.selected = selected;
+        super(x, y, width, height, selected);
+    }
+
+    public GOval(GObject g) {
+        super(g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getSelected());
     }
 
     public void draw(Canvas canvas) {
         RectF rectF = new RectF(getX(), getY(), getX() + getWidth(), getY() + getHeight());
-        if (selected) {
-            canvas.drawRect(rectF, blueOutline);
+        if (this.getSelected()) {
+            canvas.drawOval(rectF, blueOutline);
         } else {
-            canvas.drawRect(rectF, redOutline);
+            canvas.drawOval(rectF, redOutline);
         }
-        canvas.drawRect(rectF, whiteFill);
-
-    }
-
-    public void setSelected(boolean setSelected) {
-        this.selected = setSelected;
+        canvas.drawOval(rectF, whiteFill);
     }
 }

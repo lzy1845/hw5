@@ -11,10 +11,11 @@ import android.graphics.Paint;
 public class GObject {
     private float x, y, width, height;
     public Paint redOutline, whiteFill, blueOutline;
+    private boolean selected;
 
     private void init() {
         redOutline = new Paint();
-        redOutline.setColor(Color.RED);
+        redOutline.setColor(Color.rgb(140,21,21));
         redOutline.setStyle(Paint.Style.STROKE);
         redOutline.setStrokeWidth(5.0f);
 
@@ -28,11 +29,12 @@ public class GObject {
 
     }
 
-    public GObject(float x, float y, float width, float height) {
+    public GObject(float x, float y, float width, float height, boolean selected) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.selected = selected;
         init();
     }
 
@@ -52,11 +54,30 @@ public class GObject {
         return this.height;
     }
 
-    public boolean isSelected(double clickX, double clickY) {
-        return (clickX >= x && clickX <= x+width && clickY >= y && clickY <= y+height);
+
+    public boolean overlap(double clickX, double clickY) {
+        return clickX >= x && clickX <= x+width && clickY >= y && clickY <= y+height;
     }
 
     public void draw(Canvas canvas) {
+    }
 
+    public void setSelected(boolean b) {
+        this.selected = b;
+    }
+
+    public boolean getSelected() {
+        return this.selected;
+    }
+
+    public void update(float x, float y, float width, float height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    public boolean equals(GObject gObjectTwo) {
+        return (x == gObjectTwo.x) && (y == gObjectTwo.y) && (width == gObjectTwo.width) && (height == gObjectTwo.height);
     }
 }

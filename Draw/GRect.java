@@ -9,25 +9,23 @@ import android.graphics.Paint;
  */
 
 public class GRect extends GObject {
-    private boolean selected;
 
     public GRect(float x, float y, float width, float height, boolean selected) {
-        super(x, y, width, height);
-        this.selected = selected;
+        super(x, y, width, height, selected);
+    }
+
+    public GRect(GObject g) {
+        super(g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getSelected());
     }
 
     public void draw(Canvas canvas) {
-        if (selected) {
+        if (this.getSelected()) {
             canvas.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), blueOutline);
+
         } else {
             canvas.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), redOutline);
         }
         canvas.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), whiteFill);
 
     }
-
-    public void setSelected(boolean setSelected) {
-        this.selected = setSelected;
-    }
-
 }
